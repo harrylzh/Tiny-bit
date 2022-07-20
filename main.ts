@@ -7,123 +7,120 @@ load dependency
 
 //% color="#006400" weight=20 icon="\uf1b9"
 namespace Tinybit {
+    
+    const PWM_ADD = 0x01
+    const MOTOR = 0x02
+    const RGB = 0x01
+    
+    let yahStrip: neopixel.Strip;
 
-    export function PrintNumber () {
-        basic.showNumber(0)
+    export enum enColor {
+
+        //% blockId="OFF" block="OFF"
+        OFF = 0,
+        //% blockId="Red" block="Red"
+        Red,
+        //% blockId="Green" block="Green"
+        Green,
+        //% blockId="Blue" block="Blue"
+        Blue,
+        //% blockId="White" block="White"
+        White,
+        //% blockId="Cyan" block="Cyan"
+        Cyan,
+        //% blockId="Pinkish" block="Pinkish"
+        Pinkish,
+        //% blockId="Yellow" block="Yellow"
+        Yellow,
+
     }
-    // const PWM_ADD = 0x01
-    // const MOTOR = 0x02
-    // const RGB = 0x01
-    
-    // let yahStrip: neopixel.Strip;
+    export enum enMusic {
 
-    // export enum enColor {
+        //% blockId="dadadum" block="dadadum"
+        dadadum = 0,
+        //% blockId="entertainer" block="entertainer"
+        entertainer,
+        //% blockId="prelude" block="prelude"
+        prelude,
+        //% blockId="ode" block="ode"
+        ode,
+        //% blockId="nyan" block="nyan"
+        nyan,
+        //% blockId="ringtone" block="ringtone"
+        ringtone,
+        //% blockId="funk" block="funk"
+        funk,
+        //% blockId="blues" block="blues"
+        blues,
+        //% blockId="birthday" block="birthday"
+        birthday,
+        //% blockId="wedding" block="wedding"
+        wedding,
+        //% blockId="funereal" block="funereal"
+        funereal,
+        //% blockId="punchline" block="punchline"
+        punchline,
+        //% blockId="baddy" block="baddy"
+        baddy,
+        //% blockId="chase" block="chase"
+        chase,
+        //% blockId="ba_ding" block="ba_ding"
+        ba_ding,
+        //% blockId="wawawawaa" block="wawawawaa"
+        wawawawaa,
+        //% blockId="jump_up" block="jump_up"
+        jump_up,
+        //% blockId="jump_down" block="jump_down"
+        jump_down,
+        //% blockId="power_up" block="power_up"
+        power_up,
+        //% blockId="power_down" block="power_down"
+        power_down
 
-    //     //% blockId="OFF" block="OFF"
-    //     OFF = 0,
-    //     //% blockId="Red" block="Red"
-    //     Red,
-    //     //% blockId="Green" block="Green"
-    //     Green,
-    //     //% blockId="Blue" block="Blue"
-    //     Blue,
-    //     //% blockId="White" block="White"
-    //     White,
-    //     //% blockId="Cyan" block="Cyan"
-    //     Cyan,
-    //     //% blockId="Pinkish" block="Pinkish"
-    //     Pinkish,
-    //     //% blockId="Yellow" block="Yellow"
-    //     Yellow,
+    }
+    export enum enPos {
 
-    // }
-    // export enum enMusic {
+        //% blockId="LeftState" block="LeftState"
+        LeftState = 0,
+        //% blockId="RightState" block="RightState"
+        RightState = 1
+    }
 
-    //     //% blockId="dadadum" block="dadadum"
-    //     dadadum = 0,
-    //     //% blockId="entertainer" block="entertainer"
-    //     entertainer,
-    //     //% blockId="prelude" block="prelude"
-    //     prelude,
-    //     //% blockId="ode" block="ode"
-    //     ode,
-    //     //% blockId="nyan" block="nyan"
-    //     nyan,
-    //     //% blockId="ringtone" block="ringtone"
-    //     ringtone,
-    //     //% blockId="funk" block="funk"
-    //     funk,
-    //     //% blockId="blues" block="blues"
-    //     blues,
-    //     //% blockId="birthday" block="birthday"
-    //     birthday,
-    //     //% blockId="wedding" block="wedding"
-    //     wedding,
-    //     //% blockId="funereal" block="funereal"
-    //     funereal,
-    //     //% blockId="punchline" block="punchline"
-    //     punchline,
-    //     //% blockId="baddy" block="baddy"
-    //     baddy,
-    //     //% blockId="chase" block="chase"
-    //     chase,
-    //     //% blockId="ba_ding" block="ba_ding"
-    //     ba_ding,
-    //     //% blockId="wawawawaa" block="wawawawaa"
-    //     wawawawaa,
-    //     //% blockId="jump_up" block="jump_up"
-    //     jump_up,
-    //     //% blockId="jump_down" block="jump_down"
-    //     jump_down,
-    //     //% blockId="power_up" block="power_up"
-    //     power_up,
-    //     //% blockId="power_down" block="power_down"
-    //     power_down
-
-    // }
-    // export enum enPos {
-
-    //     //% blockId="LeftState" block="LeftState"
-    //     LeftState = 0,
-    //     //% blockId="RightState" block="RightState"
-    //     RightState = 1
-    // }
-
-    // export enum enLineState {
-    //     //% blockId="White" block="White Line"
-    //     White = 0,
-    //     //% blockId="Black" block="Black Line"
-    //     Black = 1
-    // }
+    export enum enLineState {
+        //% blockId="White" block="White Line"
+        White = 0,
+        //% blockId="Black" block="Black Line"
+        Black = 1
+    }
     
     
-    // export enum CarState {
-    //     //% blockId="Car_Run" block="Run"
-    //     Car_Run = 1,
-    //     //% blockId="Car_Back" block="Back"
-    //     Car_Back = 2,
-    //     //% blockId="Car_Left" block="Left"
-    //     Car_Left = 3,
-    //     //% blockId="Car_Right" block="Right"
-    //     Car_Right = 4,
-    //     //% blockId="Car_Stop" block="Stop"
-    //     Car_Stop = 5,
-    //     //% blockId="Car_SpinLeft" block="SpinLeft"
-    //     Car_SpinLeft = 6,
-    //     //% blockId="Car_SpinRight" block="SpinRight"
-    //     Car_SpinRight = 7
-    // }
+    export enum CarState {
+        //% blockId="Car_Run" block="Run"
+        Car_Run = 1,
+        //% blockId="Car_Back" block="Back"
+        Car_Back = 2,
+        //% blockId="Car_Left" block="Left"
+        Car_Left = 3,
+        //% blockId="Car_Right" block="Right"
+        Car_Right = 4,
+        //% blockId="Car_Stop" block="Stop"
+        Car_Stop = 5,
+        //% blockId="Car_SpinLeft" block="SpinLeft"
+        Car_SpinLeft = 6,
+        //% blockId="Car_SpinRight" block="SpinRight"
+        Car_SpinRight = 7
+    }
 
-    // function setPwmRGB(red: number, green: number, blue: number): void {
+    function setPwmRGB(red: number, green: number, blue: number): void {
 
-    //     let buf = pins.createBuffer(4);
-    //     buf[0] = RGB;
-    //     buf[1] = red;
-    //     buf[2] = green;
-    //     buf[3] = blue;
+        let buf = pins.createBuffer(4);
+        buf[0] = RGB;
+        buf[1] = red;
+        buf[2] = green;
+        buf[3] = blue;
         
-    //     pins.i2cWriteBuffer(PWM_ADD, buf);
-    // }
+        pins.i2cWriteBuffer(PWM_ADD, buf);
+    }
 
     // function setPwmMotor(mode: number, speed1: number, speed2: number): void {
     //     if (mode < 0 || mode > 6)
